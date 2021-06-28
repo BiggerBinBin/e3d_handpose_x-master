@@ -1,8 +1,20 @@
+# **说明**
+这个项目是克隆到Eric.Lee2021在code china上的一个项目。
+原项目地址：[https://codechina.csdn.net/EricLee/e3d_handpose_x](https://codechina.csdn.net/EricLee/e3d_handpose_x "e3d_handpose_x")
+
+
+因为原作用用到的mono里面有些脚本文件是基于python2的，我的环境是Python3的，有些包已经变了，我只是稍作修改，在我的电脑上能运行起来。并做个备份
+若要运行下来，需要修改mano/webuser/smpl_handpca_wrapper_HAND_only.py这个文件的
+第59行
+    `fname_or_dict = 'D:/AI-LAB/e3d_handpose_x-master/mano/models/MANO_RIGHT.pkl'`
+
+和第96行
+来指定自己模型的目录
 # Easy 3D HandPose X  
 Easy 3D HandPose，pytorch，单目相机的手三维姿态估计
 
 ## 项目介绍   
-* 注意：该项目前向推理用到项目包括：  
+* 注意：该项目前向推理用到项目包括（里面全是原作者的一些项目）：  
 - [x] 手检测：https://codechina.csdn.net/EricLee/yolo_v3
 - [x] 手二维关键点检测：https://codechina.csdn.net/EricLee/handpose_x
 - [x] Manopth：https://github.com/hassony2/manopth
@@ -16,42 +28,17 @@ Easy 3D HandPose，pytorch，单目相机的手三维姿态估计
 ## 项目配置  
 ### 1、软件  
 * 作者开发环境：  
-* Python 3.7  
+* Python 3.8  
 * PyTorch >= 1.5.1  
 * opencv-python  
 * open3d  
 ### 2、硬件  
-* 普通USB彩色（RGB）网络摄像头    
-
-## 数据集   
-* 制作数据集，后续更新
-
-## 模型   
-### 1、目前支持的模型 (backbone)
-
-- [x] resnet18 & resnet34 & resnet50 & resnet101
-
-### 2、预训练模型   
-
-* [预训练模型下载地址(百度网盘 Password: 95t4 )](https://pan.baidu.com/s/1L9JVjnvKDjG0opIAUZOF0g)        
-
+* 笔记本自带摄像头
 
 ## 项目使用方法  
-### [1]准备左右手3D建模资源（MANO Hand Model）  
-* 该模型也可在官网下载，官网地址为：https://mano.is.tue.mpg.de/
-* 下载模型和文件 (下载文件的格式为 mano_v*_*.zip)。注意这些文件的下载使用遵守 [MANO license](https://mano.is.tue.mpg.de/license)。
-* 下载模型后进行解压，并将其目录结构设置如下：
-```
-e3d_handpose_x/
-  mano/
-    models/
-      MANO_LEFT.pkl
-      MANO_RIGHT.pkl
-      ...
-    webuser/
-      ...
-    __init__.py
-```
+### [1]准备左右手3D建模资源（MANO Hand Model）和原作者的一些资源  
+链接：[https://pan.baidu.com/s/1TE5ig27jjvF690ZezhgO5A ](https://pan.baidu.com/s/1TE5ig27jjvF690ZezhgO5A )
+提取码：8md6 
 ### [2]模型训练  
 #### 根目录下运行命令： python train.py       (注意脚本内相关参数配置 )   
 
@@ -63,18 +50,41 @@ e3d_handpose_x/
 ####    注意：目前推理为 “预发版本”，只支持画面中出现一只手会进行三维姿态估计，并只支持右手姿态估计。   
 
 #####    第 1 步：确定电脑连接相机。
-#####    第 2 步：下载 [模型前向推理包(百度网盘 Password: xhd3 )](https://pan.baidu.com/s/1wqhIgciL5mnlT1PyHKI6QQ)    
-#####    第 3 步：解压模型前向推理包，配置 [yolo_inference.py](https://codechina.csdn.net/EricLee/e3d_handpose_x/-/blob/master/yolo_inference.py)脚本模型路径参数，参考如下：  
+#####	第2步：下载mono和if_package两个文件夹到目录,大概文件夹的结构如下：
 ```
-  parser.add_argument('--model_path', type=str, default = './if_package/e3d_handposex-resnet_50-size-128-loss-wing_loss-20210619.pth',
-      help = 'model_path') # e3d handpose 模型路径
-  parser.add_argument('--detect_model_path', type=str, default = './if_package/hand_detect_416-20210606.pt',
-      help = 'model_path') # detect 模型路径
-  parser.add_argument('--handpose_x2d_model_path', type=str, default = './if_package/handposex_2d_resnet_50-size-256-wingloss102-0.119.pth',
-      help = 'model_path') # 手2维关键点 模型路径
+e3d_handpose_x/
+├─components
+│  ├─hand_detect
+│  │  ├─utils
+│  │  │  └─__pycache__
+│  │  └─__pycache__
+│  └─hand_keypoints
+│      ├─models
+│      │  └─__pycache__
+│      ├─utils
+│      │  └─__pycache__
+│      └─__pycache__
+├─e3d_data_iter
+│  └─__pycache__
+├─if_package
+├─loss
+├─mano
+│  ├─models
+│  ├─webuser
+│  │  ├─hello_world
+│  │  └─__pycache__
+│  └─__pycache__
+├─manopth
+│  └─__pycache__
+├─models
+│  └─__pycache__
+├─samples
+├─utils
+│  └─__pycache__
+└─__pycache__
 ```
-#####   第 4 步：运行脚本：python yolo_inference.py
+#####   第 3 步：运行脚本：python yolo_inference.py
 ####   注意：运行出错，注意看log报的错误，尽量自行解决，思考尝试解决不了，issue提问。
 
 ## 联系方式 （Contact）  
-* E-mails: 305141918@qq.com   
+* E-mails: 1091313282@qq.com   
