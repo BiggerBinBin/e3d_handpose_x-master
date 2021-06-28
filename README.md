@@ -21,8 +21,8 @@ Easy 3D HandPose，pytorch，单目相机的手三维姿态估计
 - [x] Easy 3D HandPose X：https://codechina.csdn.net/EricLee/e3d_handpose_x
 
 * 视频示例：  
- ![video](https://github.com/BiggerBinBin/e3d_handpose_x-master/blob/master/samples/%E8%A7%86%E9%A2%91.mp4)    
-    
+ ![video](https://github.com/BiggerBinBin/e3d_handpose_x-master/blob/master/samples/sample.gif)    
+* [完整示例视频](https://www.bilibili.com/video/BV1j64y1r7da/)       
 ## 项目推理 PipeLine
  ![pipeline](https://github.com/BiggerBinBin/e3d_handpose_x-master/blob/master/samples/e3d.jpg)  
 ## 项目配置  
